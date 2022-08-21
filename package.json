@@ -1,0 +1,21 @@
+{
+  "name": "vp-socket",
+  "version": "1.0.0",
+  "description": "WebSocket server for Voting Poker application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest --watchAll",
+    "dev": "nodemon app.js"
+  },
+  "author": "M. Cullen McClellan",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19",
+    "socket.io": "^4.5.1"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
