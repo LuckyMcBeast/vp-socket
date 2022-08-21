@@ -1,13 +1,14 @@
 const express = require('express')
 const { createServer } = require('http')
 const { Server } = require('socket.io')
+require('dotenv').config()
 
 
 const app = express()
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
     cors: {
-        origin: "https://votingpoker.mcullenm.dev"
+        origin: process.env.REQUESTER_URL
     }
 })
 
@@ -26,6 +27,7 @@ io.on('connection', socket => {
       });
     socket.on('setName', (name) => {
         console.log(`ID: ${socket.id}, NAME: ${name}`)
+        socket.broadcast.emit('nameSet', { name })
     })
     socket.on('disconnect', reason => {
         console.log(`Disconnecting: ${socket.id}, reason: ${reason}`)
