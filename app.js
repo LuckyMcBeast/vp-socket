@@ -8,7 +8,7 @@ const app = express()
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
     cors: {
-        origin: process.env.REQUESTER_URL
+        origin: process.env.REQUESTER_URL || ''
     }
 })
 
@@ -17,6 +17,35 @@ const port = process.env.PORT || 3200
 app.get('/ping', (req, res) => {
     res.send('LIVE')
 })
+
+
+class User {
+    name;
+    socketId;
+    vote;
+    context;
+    
+    constructor(socketId){
+        this.socketId = socketId
+    }
+
+}
+
+class Room {
+    users = [];
+    hostSocketId;
+    constructor(hostUser){
+        this.users = [hostUser],
+        this.hostSocketId = hostUser.socketId
+    }
+
+    addUser(user) {
+        this.users.push(user)
+    }
+}
+
+const rooms = []
+
 
 io.on('connection', socket => {
     console.log(socket.rooms)
